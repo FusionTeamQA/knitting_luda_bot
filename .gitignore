@@ -6,9 +6,7 @@ lib
 .Python
 .idea
 *.js
-bot.py
 Config_bot.html
 test.py
-bot.py
 backup.py
 tg_test.py

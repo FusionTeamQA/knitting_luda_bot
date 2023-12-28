@@ -13,7 +13,7 @@ import sqlite3
 import pytz
 
 
-bot = telebot.TeleBot(setting.token_test)
+bot = telebot.TeleBot(setting.token_prod)
 user_dict = {}
 user_chats = 0
 dt_string = None  # Установка даты и времени

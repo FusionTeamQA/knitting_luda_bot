@@ -1,5 +1,5 @@
-# token_prod =
-token_test = '6838183147:AAGsY73XHlRdBFJA15ERHUhnWlSMBzA0ycY'
+token_prod = "6766185995:AAHGmGonyLuxlSZzOrGgzHJ4GRRyeZ2mV9c"
+# token_test = '6838183147:AAGsY73XHlRdBFJA15ERHUhnWlSMBzA0ycY'
 # METRIKA_COUNTER_ID = "95545013"
 
 admin_id_ugraswim = 597010493

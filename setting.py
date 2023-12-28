@@ -9,7 +9,7 @@ admin_id_ugraswim = 597010493
 # Общие ссылки
 
 # Site = 'https://mossplit.ru'
-# VK = 'https://vk.com/mossplit'
+VK = 'https://vk.com/l_y_u_d_o_c_h_e_k'
 # INSTAGRAM = "https://www.instagram.com/mossplit"
-# TG_channel = "@mossplit"
+TG_channel = "@MagicCrochet_61"
 

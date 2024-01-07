@@ -1,10 +1,10 @@
 token_prod = "6766185995:AAHGmGonyLuxlSZzOrGgzHJ4GRRyeZ2mV9c"
-# token_test = '6838183147:AAGsY73XHlRdBFJA15ERHUhnWlSMBzA0ycY'
+token_test = '5711969178:AAE1u9yT6xLMtYxzphjVTIQeRF_5XSll_5M'
 # METRIKA_COUNTER_ID = "95545013"
 
 admin_id_ugraswim = 597010493
 # admin_manager = 192680166
-# group_id_manager = -1001887583891
+group_id_manager = -4044458359
 
 # Общие ссылки
 

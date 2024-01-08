@@ -1,7 +1,11 @@
 import os
 import sys
+from datetime import datetime
 
+import gspread
+import pytz
 import telebot
+from oauth2client.service_account import ServiceAccountCredentials
 from requests import ReadTimeout
 from telebot import types
 from telebot.types import ReplyKeyboardRemove
@@ -39,15 +43,43 @@ products_bag = products_bag
 current_index = 0  # Начальный индекс для пагинации
 
 
+dt_string = None  # Установка даты и времени
+
+# Установка параметров доступа к Google API
+scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+credentials = ServiceAccountCredentials.from_json_keyfile_name('key/key.json', scope)
+client = gspread.authorize(credentials)
+
+# Открытие таблицы по URL
+url = 'https://docs.google.com/spreadsheets/d/1tPyAv6qoarR_bRTPt61ZeMoKI9VNDMV8hyN1EDN6wlc/edit#gid=274948492'
+sheet = client.open_by_url(url).sheet1
+
+url_log = 'https://docs.google.com/spreadsheets/d/1tPyAv6qoarR_bRTPt61ZeMoKI9VNDMV8hyN1EDN6wlc/edit#gid=97989579'
+sheet_log = client.open_by_url(url_log).worksheet('Log')
+
+url_orders = 'https://docs.google.com/spreadsheets/d/1tPyAv6qoarR_bRTPt61ZeMoKI9VNDMV8hyN1EDN6wlc/edit#gid=1272584257'
+sheet_orders = client.open_by_url(url_log).worksheet('Orders')
+
+data = sheet.get_all_records()
+
+
+
 @bot.message_handler(commands=['start'])
 def start(message):
     try:
+        target_timezone = pytz.timezone('Europe/Moscow')
+        now = datetime.now(tz=target_timezone)
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        data_to_insert = [message.text, message.from_user.username, dt_string]
+        sheet.append_row(data_to_insert)
+        sheet_log.append_row(data_to_insert)
         markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
         btn1 = types.KeyboardButton('🎁 Заказать изделие')
         btn3 = types.KeyboardButton('🌟 Наши работы')
         btn4 = types.KeyboardButton('☎️ Контакты')
         btn5 = types.KeyboardButton('📝 Подписаться на канал')
-        markup.add(btn1, btn3, btn4, btn5)
+        btn6 = types.KeyboardButton('👌 Инструкция по уходу')
+        markup.add(btn1, btn3, btn4, btn5, btn6)
         bot.send_message(message.from_user.id, "Добро пожаловать в нашу группу по продаже вязанных игрушек и корзинок! "
                                                "У нас вы можете заказать любую вязанную вещь по вашему желанию.",
                          reply_markup=markup)
@@ -62,6 +94,11 @@ def start(message):
 
 @bot.message_handler(func=lambda message: message.text == '🌟 Наши работы')
 def handle_works_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     btn1 = types.KeyboardButton('🧺 Корзины и наборы')
     btn3 = types.KeyboardButton('🧸 Игрушки')
@@ -74,6 +111,11 @@ def handle_works_command(message):
 # Отправка Сумок
 @bot.message_handler(func=lambda message: message.text == '👛 Сумки')
 def handle_bags_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
     global current_index
     current_index = 0  # Сброс пагинации
     send_batch(message)
@@ -119,6 +161,11 @@ def handle_load_more(call):
 # Отправка Игрушек
 @bot.message_handler(func=lambda message: message.text == '🧸 Игрушки')
 def handle_games_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
     global current_index
     current_index = 0  # Сброс пагинации
     send_batch_games(message)
@@ -164,6 +211,11 @@ def handle_load_more(call):
 # Отправка Корзинок
 @bot.message_handler(func=lambda message: message.text == '🧺 Корзины и наборы')
 def handle_basket_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
     bot.send_message(message.from_user.id,
                      'Стильные корзинки сделают Ваш дом уютным и модным. Отличная идея для подарка.\n')
     global current_index
@@ -210,17 +262,28 @@ def handle_load_more(call):
 
 @bot.message_handler(func=lambda message: message.text == '🔙 Главное меню')
 def handle_menu_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     btn1 = types.KeyboardButton('🎁 Заказать изделие')
     btn3 = types.KeyboardButton('🌟 Наши работы')
     btn4 = types.KeyboardButton('☎️ Контакты')
     btn5 = types.KeyboardButton('📝 Подписаться на канал')
-    markup.add(btn1, btn3, btn4, btn5)
+    btn6 = types.KeyboardButton('👌 Инструкция по уходу')
+    markup.add(btn1, btn3, btn4, btn5, btn6)
     bot.send_message(message.from_user.id, '⬇ Выберите нужный раздел', reply_markup=markup)
 
 
 @bot.message_handler(func=lambda message: message.text == '☎️ Контакты')
 def handle_contacts_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     btn1 = types.KeyboardButton('🔙 Главное меню')
     markup.add(btn1)
@@ -234,15 +297,41 @@ def handle_contacts_command(message):
 
 @bot.message_handler(func=lambda message: message.text == '📝 Подписаться на канал')
 def handle_subscribe_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
     keyboard = types.InlineKeyboardMarkup()
     button = types.InlineKeyboardButton(text="Подписаться на канал", url="https://t.me/MagicCrochet_61")
     keyboard.add(button)
     bot.send_message(chat_id=message.chat.id, text="Нажмите кнопку чтобы перейти и подписаться на канал:",
                      reply_markup=keyboard)
 
+@bot.message_handler(func=lambda message: message.text == '👌 Инструкция по уходу')
+def handle_instruction_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
+    with open('instruction.txt', 'r') as file:
+        instr_text = file.read()
+    bot.send_message(chat_id=message.chat.id, text=instr_text)
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    btn1 = types.KeyboardButton('🎁 Заказать изделие')
+    btn5 = types.KeyboardButton('🔙 Главное меню')
+    markup.add(btn1, btn5)
+    bot.send_message(chat_id=message.chat.id, text="Закажите изделие ручной работы уже сейчас! 🤩💃", reply_markup=markup)
+
 
 @bot.message_handler(func=lambda message: message.text == '🎁 Заказать изделие')
 def handle_order_command(message):
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert = [message.text, message.from_user.username, dt_string]
+    sheet_log.append_row(data_to_insert)
     chat_id = message.chat.id
     board = types.InlineKeyboardMarkup()
     cancel = types.InlineKeyboardButton(text="🙅 Отменить заявку", callback_data="Отмена")
@@ -387,6 +476,11 @@ def send_z(message):
                      + f'Дополнительные комментарии: {app_text[0]} \n'
 
                      + f'ID юзера: {user_chats}')
+    target_timezone = pytz.timezone('Europe/Moscow')
+    now = datetime.now(tz=target_timezone)
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    data_to_insert_orders = [user.name, user.type, user.for_whom, user.holiday, user.kontakt_numb, app_text[0], message.from_user.username, dt_string]
+    sheet_orders.append_row(data_to_insert_orders)
     app_name_first.clear()
     app_name_last.clear()
     app_username.clear()
@@ -401,12 +495,18 @@ def handle_button_click(call):
     chat_id = call.message.chat.id
     if call.message:
         if call.data == "Отмена":
+            target_timezone = pytz.timezone('Europe/Moscow')
+            now = datetime.now(tz=target_timezone)
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            data_to_insert = ['Отмена заявки', call.message.chat.username, dt_string]
+            sheet_log.append_row(data_to_insert)
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             btn1 = types.KeyboardButton('🎁 Заказать изделие')
             btn3 = types.KeyboardButton('🌟 Наши работы')
             btn4 = types.KeyboardButton('☎️ Контакты')
             btn5 = types.KeyboardButton('📝 Подписаться на канал')
-            markup.add(btn1, btn3, btn4, btn5)
+            btn6 = types.KeyboardButton('👌 Инструкция по уходу')
+            markup.add(btn1, btn3, btn4, btn5, btn6)
             msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
                                         text='Отмена заполнения заявки...')
             bot.send_message(chat_id=call.message.chat.id, text='⬇ Выберите нужный раздел', reply_markup=markup)

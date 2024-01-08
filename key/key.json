@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ludaknitting",
+  "private_key_id": "72a2c58c854ebc5e4e49ec562c48a91a8ac74c51",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCNzC9U4+gkaEKs\nEy2GAfsQ4/B1+Rp5vjgYv59p2FJbZfmv13qBlgx2HxKVE37UmAv3VEiyXMAiNF5v\nYzwC0kfPha2ERsYt/jlxX+jaL28PHACJrC3PMaL7eHVMCYUc74mqzj/Ei5+RrbUR\n82FSk5ezpweZAXStFne5gGLr9c601aYnmN/VqOVtZDQ82FnG1TNiKL5jFwBFIyre\nq6pytUMjw2KFO+xD+iMWIfcb0dfASTs4S9jFPWIe4Hux0DoBD6WH8zAqml/tzh+z\nhoWZZkCJQrA6S0Gm0OyyPiZVCX7VATTS1C1tAdbIbzVpv5L+ytzDXUSR/nrZKDT2\nwMJIIw0pAgMBAAECggEAG4r/3qNuYjQGT1piS1dzJzK/cIr0g5VZXCVMl8i3Jp3G\nREu8thMpVIBwoZhp2G24VVB/1nWBtKMrfMNv0rR50muK6ti8gg6Rpd4VYtw33F16\nFUPmmgpwOByL3Ds1Kgu1WAI8DLd6RVfShiwaSWn126WkKipIOZ7Vnqi7jk3u2t0j\nECl/SiJqovk6xxVO9Dt9P1V90q6yVmhcS639nav9Dk2RV4hswZg+vksbQy/eD2bH\niCjskZoXloFlDKYGZpbKkEV41mZIDRwMMzgZcDe8nRKwWomOBCrHMJ70/3BuEiK3\nVrOtjis3LAM3gTEFFw2jrO+raMkhG3uPZbCZZ7X6CQKBgQDIDxxU6FHcBdir+1ra\nAAxCCV50YOOlSClNCuwrCwl+EldP0uv/z1jjfC1X2/Va+EGIdkxOZ2whIxI6angq\nyTwlo8Y3TZZjl78Os7PIwc55IZEwGhZHEsEU4HoaVA/+6Ghl8TtktYAj256TSkEm\nlN97PK0rBZ5Da06G768NiaWgpwKBgQC1cocXYfGL2ZyM3/SCXBzaH5UioThILupJ\niQ3HpZPTBL2GjE8dCngjCM4FFJojv8SiAeYGwZb9zeUb344Nwf96HlVADiRQP0rY\n3fO0bgg3mjlBHeBDtC6A6onQ6aiWRm61Wm/0o90h07W8YOGFES34dcS5xoXnntMl\nfvcEp6hNrwKBgBC4GpEJ/VVa87mjvvr7CAs4xzkIo927QyBaKlSKjpeHpt5X7Tsq\ns+4HAa8XBdE9cBScdlITGJlIWgyhuzswKCOpJTaX+FqIYwIyiHLdp4i+Amk3tObp\nrVM2U14B6nhOKfNjDqii9nuIrh73FKzJwkeFUZ+Hz6sou55RR5rlBv9/AoGAcDwJ\nZ+NDn/fZKCKXgdMsXZfPjf4fbDbo4NeP2ICI8awq94Dups4FBda6aNYXiilinbuC\n54bzuMaVAyrDGat4NbdxkA+vUpvz1jVkO6UcHBifdbHfOMHJSiDJYppFl761WCQ6\nwB5j+DqWXZGnrcG0p81hBHDR/zV08eqZLR3vsy0CgYAz3EAFjgYMzuIFTpMHHZK/\nwASk8/tEOxJzQkuQs0/1n4j7Kcs+CekZ6qWzy6zoDs4tsk69Usxp/ufZKQQ+Kpky\nJqvj6AO59eV3IPKdX3Zb6phbgo6OILclRXvpraDwYbKd3/m8+dQj2I4d6wuGPSLr\nZfQDBct+i7m6uJMoO758mg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "luda-knitting@ludaknitting.iam.gserviceaccount.com",
+  "client_id": "102133026704245481739",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/luda-knitting%40ludaknitting.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

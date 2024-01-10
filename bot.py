@@ -80,7 +80,7 @@ def start(message):
         btn5 = types.KeyboardButton('📝 Подписаться на канал')
         btn6 = types.KeyboardButton('👌 Инструкция по уходу')
         markup.add(btn1, btn3, btn4, btn5, btn6)
-        bot.send_message(message.from_user.id, "Добро пожаловать в нашу группу по продаже вязанных игрушек и корзинок! "
+        bot.send_message(message.from_user.id, "Добро пожаловать в нашу группу по продаже вязанных сумок, игрушек и корзинок! "
                                                "У нас вы можете заказать любую вязанную вещь по вашему желанию.",
                          reply_markup=markup)
         bot.send_message(message.from_user.id,
@@ -256,7 +256,7 @@ def send_batch_basket(message):
 
 @bot.callback_query_handler(func=lambda call: call.data == 'load_more_basket')
 def handle_load_more(call):
-    send_batch_games(call.message)
+    send_batch_basket(call.message)
     bot.answer_callback_query(call.id)
 
 

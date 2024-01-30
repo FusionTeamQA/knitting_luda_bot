@@ -315,7 +315,7 @@ def handle_instruction_command(message):
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     data_to_insert = [message.text, message.from_user.username, dt_string]
     sheet_log.append_row(data_to_insert)
-    with open('instruction.txt', 'r', encoding='utf-8') as file:
+    with open('instruction.html', 'r', encoding='utf-8') as file:
         instr_text = file.read()
     bot.send_message(chat_id=message.chat.id, text=instr_text, parse_mode='HTML')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)

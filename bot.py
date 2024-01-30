@@ -12,7 +12,6 @@ from telebot import types
 from telebot.types import ReplyKeyboardRemove
 import random
 
-
 from products import products_bag
 from products import products_games
 from products import products_baskets
@@ -26,6 +25,10 @@ user_chats = 0
 
 generated_numbers = []
 
+blacklisted_numbers = [365, 468, 171, 298, 366, 286, 350, 61, 7]
+generated_numbers.extend(blacklisted_numbers)
+
+
 def generate_unique_random_number():
     global generated_numbers
     number = random.randint(0, 500)
@@ -33,6 +36,8 @@ def generate_unique_random_number():
         number = random.randint(0, 500)
     generated_numbers.append(number)
     return number
+
+
 class User:
 
     def __init__(self, name):
@@ -52,7 +57,6 @@ class User:
 # Предполагается, что у вас есть список продуктов
 products_bag = products_bag
 current_index = 0  # Начальный индекс для пагинации
-
 
 dt_string = None  # Установка даты и времени
 
@@ -74,8 +78,8 @@ sheet_orders = client.open_by_url(url_log).worksheet('Orders')
 url_lottery = 'https://docs.google.com/spreadsheets/d/1tPyAv6qoarR_bRTPt61ZeMoKI9VNDMV8hyN1EDN6wlc/edit#gid=1699828975'
 sheet_lottery = client.open_by_url(url_log).worksheet('Lottery')
 
-
 data = sheet.get_all_records()
+
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -108,7 +112,9 @@ def start(message):
                              "Не стесняйтесь задавать вопросы и делиться своими идеями. Надеемся, вы найдете у нас то, что ищете! 🧶🧸🧺",
                              reply_markup=markup)
         else:
-            bot.send_message(user_id, "Для использования бота, пожалуйста, подпишитесь на наше сообщество. https://t.me/MagicCrochet_61 и перезагрузите бота через меню.", parse_mode='html')
+            bot.send_message(user_id,
+                             "Для использования бота, пожалуйста, подпишитесь на наше сообщество. https://t.me/MagicCrochet_61 и перезагрузите бота через меню.",
+                             parse_mode='html')
     except Exception as e:
         print(e)
         bot.send_message(message.from_user.id, "Произошла ошибка при проверке подписки.")
@@ -129,6 +135,7 @@ def handle_works_command(message):
     markup.add(btn1, btn3, btn4, btn5)
     bot.send_message(message.from_user.id, '⬇ Выберите интересующий раздел', reply_markup=markup)
 
+
 @bot.message_handler(func=lambda message: message.text == '✨ Акции')
 def handle_action_command(message):
     target_timezone = pytz.timezone('Europe/Moscow')
@@ -143,6 +150,7 @@ def handle_action_command(message):
     markup.add(btn1, btn3, btn4)
     bot.send_message(message.from_user.id, '⬇ Выберите интересующий раздел', reply_markup=markup)
 
+
 @bot.message_handler(func=lambda message: message.text == '👫 Приведи друга')
 def handle_action_friend(message):
     target_timezone = pytz.timezone('Europe/Moscow')
@@ -151,10 +159,13 @@ def handle_action_friend(message):
     data_to_insert = [message.text, message.from_user.username, dt_string]
     sheet_log.append_row(data_to_insert)
     keyboard = telebot.types.InlineKeyboardMarkup()
-    url_button = telebot.types.InlineKeyboardButton(text="Перейти и поделиться каналом", url="https://t.me/MagicCrochet_61")
+    url_button = telebot.types.InlineKeyboardButton(text="Перейти и поделиться каналом",
+                                                    url="https://t.me/MagicCrochet_61")
     keyboard.add(url_button)
-    bot.send_message(message.from_user.id, 'Приведи друга и получи 50% скидку на свой следующий заказ в студии вязания! Просто приведи друга, который сделает покупку, и оба вы получите по 50% скидки на ваши заказы. '
-                                           '🎉 Радуйтесь вместе, делись уютом и радостью рукоделия с друзьями! 🧶✨', reply_markup=keyboard)
+    bot.send_message(message.from_user.id,
+                     'Приведи друга и получи 50% скидку на свой следующий заказ в студии вязания! Просто приведи друга, который сделает покупку, и оба вы получите по 50% скидки на ваши заказы. '
+                     '🎉 Радуйтесь вместе, делись уютом и радостью рукоделия с друзьями! 🧶✨', reply_markup=keyboard)
+
 
 @bot.message_handler(func=lambda message: message.text == '❇️ Скидка на 2-е изделие')
 def handle_action_discount(message):
@@ -167,13 +178,12 @@ def handle_action_discount(message):
     luda_button_tg = telebot.types.InlineKeyboardButton(text="Сделать заказ в Телеграм", url=setting.Luda)
     luda_button_vk = telebot.types.InlineKeyboardButton(text="Сделать заказ в ВКонтакте", url=setting.VK)
     keyboard.add(luda_button_tg, luda_button_vk)
-    bot.send_message(message.from_user.id, 'При покупке двух изделий в студии вязания, получи скидку на второе изделие 30%! Наслаждайся уютом и красотой вдвойне с уникальными вязаными персонажами. '
-                                           '🎁🧶✨ Удиви себя и своих близких прекрасными подарками ручной работы!' , reply_markup=keyboard)
-
+    bot.send_message(message.from_user.id,
+                     'При покупке двух изделий в студии вязания, получи скидку на второе изделие 30%! Наслаждайся уютом и красотой вдвойне с уникальными вязаными персонажами. '
+                     '🎁🧶✨ Удиви себя и своих близких прекрасными подарками ручной работы!', reply_markup=keyboard)
 
 
 @bot.message_handler(func=lambda message: message.text == '🎉 Розыгрыш')
-
 def handle_raffle_command(message):
     target_timezone = pytz.timezone('Europe/Moscow')
     now = datetime.now(tz=target_timezone)
@@ -184,10 +194,14 @@ def handle_raffle_command(message):
     btn1 = types.KeyboardButton('🥇 Зарегистрироваться на розыгрыш')
     btn2 = types.KeyboardButton('🔙 Главное меню')
     markup.add(btn1, btn2)
-    bot.send_message(message.from_user.id, '🔍При нажатии на кнопку "🥇 Зарегистрироваться на розыгрыш" вы согласны на обработку персональных данных из вашего аккаунта Телеграм.')
-    bot.send_message(message.from_user.id, '⬇ Получите свой номерок участника розыгрыша, нажав на кнопку', reply_markup=markup)
+    bot.send_message(message.from_user.id,
+                     '🔍При нажатии на кнопку "🥇 Зарегистрироваться на розыгрыш" вы согласны на обработку персональных данных из вашего аккаунта Телеграм.')
+    bot.send_message(message.from_user.id, '⬇ Получите свой номерок участника розыгрыша, нажав на кнопку',
+                     reply_markup=markup)
+
 
 last_raffle_time = {}
+
 
 @bot.message_handler(func=lambda message: message.text == '🥇 Зарегистрироваться на розыгрыш')
 def handle_raffle(message):
@@ -198,14 +212,17 @@ def handle_raffle(message):
     current_time = time.time()
     if user_id in last_raffle_time:
         time_since_last_raffle = current_time - last_raffle_time[user_id]
-        if time_since_last_raffle < 24*60*60:  # Если прошло менее 24 часов
-            bot.send_message(user_id, "Вы уже участвовали в розыгрыше за последние 24 часа. Повторно получить номерок можно только через 24 часа")
+        if time_since_last_raffle < 24 * 60 * 60:  # Если прошло менее 24 часов
+            bot.send_message(user_id,
+                             "Вы уже участвовали в розыгрыше за последние 24 часа. Повторно получить номерок можно только через 24 часа")
             return
     last_raffle_time[user_id] = current_time
     random_number = generate_unique_random_number()
     bot.send_message(user_id, f"Поздравляем! Ваш уникальный случайный номер: {random_number}")
-    data_to_insert = [message.from_user.username, message.from_user.first_name, message.from_user.last_name, random_number, dt_string]
+    data_to_insert = [message.from_user.username, message.from_user.first_name, message.from_user.last_name,
+                      random_number, dt_string, message.from_user.id]
     sheet_lottery.append_row(data_to_insert)
+
 
 # Отправка Сумок
 @bot.message_handler(func=lambda message: message.text == '👛 Сумки')
@@ -396,7 +413,7 @@ def handle_contacts_command(message):
     bot.send_contact(message.from_user.id, '+79888904608', 'Людмила', 'Байгузина', reply_markup=keyboard)
 
 
-@bot.message_handler(func=lambda message: message.text == '📝 Подписаться на канал')
+@bot.message_handler(func=lambda message: message.text == '📝 Перейти на канал')
 def handle_subscribe_command(message):
     target_timezone = pytz.timezone('Europe/Moscow')
     now = datetime.now(tz=target_timezone)
@@ -404,10 +421,11 @@ def handle_subscribe_command(message):
     data_to_insert = [message.text, message.from_user.username, dt_string]
     sheet_log.append_row(data_to_insert)
     keyboard = types.InlineKeyboardMarkup()
-    button = types.InlineKeyboardButton(text="Подписаться на канал", url="https://t.me/MagicCrochet_61")
+    button = types.InlineKeyboardButton(text="Перейти на канал", url="https://t.me/MagicCrochet_61")
     keyboard.add(button)
-    bot.send_message(chat_id=message.chat.id, text="Нажмите кнопку чтобы перейти и подписаться на канал:",
+    bot.send_message(chat_id=message.chat.id, text="Нажмите кнопку чтобы перейти и посоветовать другу наш канал:",
                      reply_markup=keyboard)
+
 
 @bot.message_handler(func=lambda message: message.text == '👌 Инструкция по уходу')
 def handle_instruction_command(message):
@@ -418,12 +436,13 @@ def handle_instruction_command(message):
     sheet_log.append_row(data_to_insert)
     with open('instruction.txt', 'r') as file:
         instr_text = file.read()
-    bot.send_message(chat_id=message.chat.id, text=instr_text)
+    bot.send_message(chat_id=message.chat.id, text=instr_text, parse_mode='HTML')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     btn1 = types.KeyboardButton('🎁 Заказать изделие')
     btn5 = types.KeyboardButton('🔙 Главное меню')
     markup.add(btn1, btn5)
-    bot.send_message(chat_id=message.chat.id, text="Закажите изделие ручной работы уже сейчас! 🤩💃", reply_markup=markup)
+    bot.send_message(chat_id=message.chat.id, text="Закажите изделие ручной работы уже сейчас! 🤩💃",
+                     reply_markup=markup)
 
 
 @bot.message_handler(func=lambda message: message.text == '🎁 Заказать изделие')
@@ -580,7 +599,8 @@ def send_z(message):
     target_timezone = pytz.timezone('Europe/Moscow')
     now = datetime.now(tz=target_timezone)
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    data_to_insert_orders = [user.name, user.type, user.for_whom, user.holiday, user.kontakt_numb, app_text[0], message.from_user.username, dt_string]
+    data_to_insert_orders = [user.name, user.type, user.for_whom, user.holiday, user.kontakt_numb, app_text[0],
+                             message.from_user.username, dt_string]
     sheet_orders.append_row(data_to_insert_orders)
     app_name_first.clear()
     app_name_last.clear()
@@ -590,6 +610,7 @@ def send_z(message):
     btn1 = types.KeyboardButton('🔙 Главное меню')
     markup.add(btn1)
     bot.send_message(chat_id, "Заявка отправлена, мы свяжемся с Вами в ближайшее время", reply_markup=markup)
+
 
 @bot.callback_query_handler(func=lambda call: True)
 def handle_button_click(call):

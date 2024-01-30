@@ -317,7 +317,7 @@ def handle_instruction_command(message):
     sheet_log.append_row(data_to_insert)
     with open('instruction.txt', 'r', encoding='utf-8') as file:
         instr_text = file.read()
-    bot.send_message(chat_id=message.chat.id, text=instr_text)
+    bot.send_message(chat_id=message.chat.id, text=instr_text, parse_mode='HTML')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     btn1 = types.KeyboardButton('🎁 Заказать изделие')
     btn5 = types.KeyboardButton('🔙 Главное меню')

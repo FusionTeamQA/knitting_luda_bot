@@ -18,7 +18,7 @@ from products import products_baskets
 
 import setting
 
-bot = telebot.TeleBot(setting.token_prod)
+bot = telebot.TeleBot(setting.token_test)
 # Заказ
 user_dict = {}
 user_chats = 0
@@ -183,7 +183,7 @@ def handle_action_discount(message):
                      '🎁🧶✨ Удиви себя и своих близких прекрасными подарками ручной работы!', reply_markup=keyboard)
 
 
-@bot.message_handler(func=lambda message: message.text == '🎉 Розыгрыш')
+# @bot.message_handler(func=lambda message: message.text == '🎉 Розыгрыш')
 def handle_raffle_command(message):
     target_timezone = pytz.timezone('Europe/Moscow')
     now = datetime.now(tz=target_timezone)
@@ -434,9 +434,9 @@ def handle_instruction_command(message):
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     data_to_insert = [message.text, message.from_user.username, dt_string]
     sheet_log.append_row(data_to_insert)
-    with open('instruction.html', 'r') as file:
+    with open('instruction.txt', 'r') as file:
         instr_text = file.read()
-    bot.send_message(chat_id=message.chat.id, text=instr_text, parse_mode='HTML')
+    bot.send_message(chat_id=message.chat.id, text=instr_text, parse_mode='html', disable_web_page_preview=True)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     btn1 = types.KeyboardButton('🎁 Заказать изделие')
     btn5 = types.KeyboardButton('🔙 Главное меню')

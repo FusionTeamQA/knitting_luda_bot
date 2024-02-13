@@ -106,8 +106,8 @@ def start(message):
             btn4 = types.KeyboardButton('☎️ Контакты')
             btn7 = types.KeyboardButton('✨ Акции')
             btn5 = types.KeyboardButton('📝 Подписаться на канал')
-            btn6 = types.KeyboardButton('👌 Инструкция по уходу')
-            markup.add(btn1, btn3, btn4, btn7, btn5, btn6)
+            # btn6 = types.KeyboardButton('👌 Инструкция по уходу')
+            markup.add(btn1, btn3, btn4, btn7, btn5)
             bot.send_message(message.from_user.id,
                              "Не стесняйтесь задавать вопросы и делиться своими идеями. Надеемся, вы найдете у нас то, что ищете! 🧶🧸🧺",
                              reply_markup=markup)
@@ -390,8 +390,8 @@ def handle_menu_command(message):
     btn4 = types.KeyboardButton('☎️ Контакты')
     btn7 = types.KeyboardButton('✨ Акции')
     btn5 = types.KeyboardButton('📝 Подписаться на канал')
-    btn6 = types.KeyboardButton('👌 Инструкция по уходу')
-    markup.add(btn1, btn3, btn4, btn7, btn5, btn6)
+    # btn6 = types.KeyboardButton('👌 Инструкция по уходу')
+    markup.add(btn1, btn3, btn4, btn7, btn5)
     bot.send_message(message.from_user.id, '⬇ Выберите нужный раздел', reply_markup=markup)
 
 

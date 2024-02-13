@@ -18,7 +18,7 @@ from products import products_baskets
 
 import setting
 
-bot = telebot.TeleBot(setting.token_test)
+bot = telebot.TeleBot(setting.token_prod)
 # Заказ
 user_dict = {}
 user_chats = 0

@@ -101,13 +101,13 @@ def start(message):
                              "💫 Просто расскажите нам, что вы хотите, и мы с удовольствием сделаем это для вас.")
             markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
             btn1 = types.KeyboardButton('🎁 Заказать изделие')
-            btn2 = types.KeyboardButton('🎉 Розыгрыш')
+            # btn2 = types.KeyboardButton('🎉 Розыгрыш')
             btn3 = types.KeyboardButton('🌟 Наши работы')
             btn4 = types.KeyboardButton('☎️ Контакты')
             btn7 = types.KeyboardButton('✨ Акции')
             btn5 = types.KeyboardButton('📝 Подписаться на канал')
             btn6 = types.KeyboardButton('👌 Инструкция по уходу')
-            markup.add(btn1, btn2, btn3, btn4, btn7, btn5, btn6)
+            markup.add(btn1, btn3, btn4, btn7, btn5, btn6)
             bot.send_message(message.from_user.id,
                              "Не стесняйтесь задавать вопросы и делиться своими идеями. Надеемся, вы найдете у нас то, что ищете! 🧶🧸🧺",
                              reply_markup=markup)
@@ -385,13 +385,13 @@ def handle_menu_command(message):
     sheet_log.append_row(data_to_insert)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     btn1 = types.KeyboardButton('🎁 Заказать изделие')
-    btn2 = types.KeyboardButton('🎉 Розыгрыш')
+    # btn2 = types.KeyboardButton('🎉 Розыгрыш')
     btn3 = types.KeyboardButton('🌟 Наши работы')
     btn4 = types.KeyboardButton('☎️ Контакты')
     btn7 = types.KeyboardButton('✨ Акции')
     btn5 = types.KeyboardButton('📝 Подписаться на канал')
     btn6 = types.KeyboardButton('👌 Инструкция по уходу')
-    markup.add(btn1, btn2, btn3, btn4, btn7, btn5, btn6)
+    markup.add(btn1, btn3, btn4, btn7, btn5, btn6)
     bot.send_message(message.from_user.id, '⬇ Выберите нужный раздел', reply_markup=markup)
 
 

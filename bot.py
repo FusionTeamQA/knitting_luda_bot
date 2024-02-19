@@ -105,9 +105,8 @@ def start(message):
             btn3 = types.KeyboardButton('🌟 Наши работы')
             btn4 = types.KeyboardButton('☎️ Контакты')
             btn7 = types.KeyboardButton('✨ Акции')
-            btn5 = types.KeyboardButton('📝 Подписаться на канал')
             # btn6 = types.KeyboardButton('👌 Инструкция по уходу')
-            markup.add(btn1, btn3, btn4, btn7, btn5)
+            markup.add(btn1, btn3, btn4, btn7)
             bot.send_message(message.from_user.id,
                              "Не стесняйтесь задавать вопросы и делиться своими идеями. Надеемся, вы найдете у нас то, что ищете! 🧶🧸🧺",
                              reply_markup=markup)
@@ -389,9 +388,8 @@ def handle_menu_command(message):
     btn3 = types.KeyboardButton('🌟 Наши работы')
     btn4 = types.KeyboardButton('☎️ Контакты')
     btn7 = types.KeyboardButton('✨ Акции')
-    btn5 = types.KeyboardButton('📝 Подписаться на канал')
     # btn6 = types.KeyboardButton('👌 Инструкция по уходу')
-    markup.add(btn1, btn3, btn4, btn7, btn5)
+    markup.add(btn1, btn3, btn4, btn7)
     bot.send_message(message.from_user.id, '⬇ Выберите нужный раздел', reply_markup=markup)
 
 
@@ -406,9 +404,11 @@ def handle_contacts_command(message):
     btn1 = types.KeyboardButton('🔙 Главное меню')
     markup.add(btn1)
     keyboard = types.InlineKeyboardMarkup()
-    button = types.InlineKeyboardButton(text="Связаться с нами в Telegram", url="https://t.me/@Lyudo4ek_1986")
+    button = types.InlineKeyboardButton(text="Связаться с нами в Telegram", url=setting.Luda)
+    button2 = types.InlineKeyboardButton(text="Мы в Вконтакте", url=setting.VK)
     keyboard.add(button)
-    bot.send_message(message.from_user.id, 'Написать Вконтакте: \n' + setting.VK, disable_web_page_preview=True,
+    keyboard.add(button2)
+    bot.send_message(message.from_user.id, 'Мы всегда на связи и готовы ответить вам на любые интересующие Вас вопросы \n',
                      reply_markup=markup)
     bot.send_contact(message.from_user.id, '+79888904608', 'Людмила', 'Байгузина', reply_markup=keyboard)
 
@@ -626,9 +626,8 @@ def handle_button_click(call):
             btn1 = types.KeyboardButton('🎁 Заказать изделие')
             btn3 = types.KeyboardButton('🌟 Наши работы')
             btn4 = types.KeyboardButton('☎️ Контакты')
-            btn5 = types.KeyboardButton('📝 Подписаться на канал')
-            btn6 = types.KeyboardButton('👌 Инструкция по уходу')
-            markup.add(btn1, btn3, btn4, btn5, btn6)
+            # btn6 = types.KeyboardButton('👌 Инструкция по уходу')
+            markup.add(btn1, btn3, btn4)
             msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
                                         text='Отмена заполнения заявки...')
             bot.send_message(chat_id=call.message.chat.id, text='⬇ Выберите нужный раздел', reply_markup=markup)

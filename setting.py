@@ -10,7 +10,9 @@ channel_id = -1002077580466
 # Общие ссылки
 
 # Site = 'https://mossplit.ru'
-VK = 'https://vk.com/l_y_u_d_o_c_h_e_k'
+VK = 'https://vk.com/magiccrochet_61'
 # INSTAGRAM = "https://www.instagram.com/mossplit"
 TG_channel = "@MagicCrochet_61"
-Luda = "http://t.me/Lyudo4ek_1986"
+Luda = "http://t.me/LyudBay"
+VK_message = 'https://vk.com/im?media=&sel=-92119149'
+
